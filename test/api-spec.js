@@ -4,12 +4,10 @@ const {expect} = require('chai');
 const baseURL = 'https://jsonplaceholder.typicode.com';
 describe('Sample test for axios', async () => {
     it('GET request', async () => {
-        //await api.get('/todos', { params : { _limit:5 }})
-        await axios.get(baseURL + '/todos', { params : { _limit:5 , id:5 }})
+        await axios.get(baseURL + '/todos', { params : { id:5 }})
         .then(async (res) => {
             await expect(res.status).to.equal(200);
-            console.log(res.data);
-            console.log(process.cwd());
+            console.log(res.data[0].id);
         })
         // .catch(async (err) => {
         //     if(err.response){
