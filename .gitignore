@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Reporting directory used by Allure
+allure-results/
+allure-report/
+
+# Dependency directories
+node_modules/
+
+# Typescript v1 declaration files
+/packages/wdio-protocols/src/commands
+!tests/typings
+!typings/types.ts
+tests/typings/**/dist
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variables file
+.env
+
+# Default project files
+!.eslintrc.js
+packages/**/package-lock.json
+.package-lock.json
+
+# Editor files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+#package-lock (automatically generated)
+package-lock.json
+
+# Download folder
+downloads/
