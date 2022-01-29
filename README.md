@@ -1,4 +1,4 @@
-# TestAPI
+# Mocha - Chai - API Test Automation Framework
 
 # Built With
 *<a href="https://mochajs.org/">Mocha</a> - Core Test Framework
