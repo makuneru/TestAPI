@@ -19,6 +19,17 @@ describe("Basic Endpoint Tests", async () => {
                     }
                     await expect(res[0].data.page).to.equal(1);
                     await expect(res[1].data.page).to.equal(2);
+            });
+        });
+
+        it("GET search user by first name", async () => {
+            //get single user by name
+            const firstName = "Lindsay";
+            await axios.get(baseURL + "/api/users" , { params: { page: 2 } })
+                .then(async (res) => {
+                    const userToSearch = Object.fromEntries(Object.entries(res).filter(([key, value]) => res.data.data.first_name === firstName) )
+                    await expect(userToSearch.first_name, "Lindsay");
+                    await expect(userToSearch.last_name, "Ferguson");
                 });
         });
 
@@ -153,8 +164,11 @@ describe("Basic Endpoint Tests", async () => {
             });
     });
 
+    //Log every request and response using interceptors. 
+    //Return Response Duration
     axios.interceptors.request.use(function (req) {
         req.time = { startTime: new Date() };
+        console.log("Request => " + req.method + " : " + req.url);
         return req;
     },
         (err) => {
@@ -165,6 +179,7 @@ describe("Basic Endpoint Tests", async () => {
     axios.interceptors.response.use(function (res) {
         res.config.time.endTime = new Date();
         res.duration = res.config.time.endTime - res.config.time.startTime;
+        console.log("Response Data => " + res.data);
         return res;
     },
         (err) => {
