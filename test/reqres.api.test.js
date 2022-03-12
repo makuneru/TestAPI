@@ -1,14 +1,14 @@
 const axios = require("axios");
 const { expect } = require("chai");
 
-const baseURL = "https://reqres.in";
+const baseURL = "https://reqres.in/api/";
 
 describe("Basic Endpoint Tests", async () => {
     describe('List of users test', async () => {
         it("GET list of users by page", async () => {
             await axios.all([
-                await axios.get(baseURL + "/api/users"), //default page 1
-                await axios.get(baseURL + "/api/users", { params: { page: 2 } }), //get page users from page 2
+                await axios.get(baseURL + "users"), //default page 1
+                await axios.get(baseURL + "users", { params: { page: 2 } }), //get page users from page 2
             ])
                 .then(async (res) => {
                     for await (const response of res) {
@@ -25,7 +25,7 @@ describe("Basic Endpoint Tests", async () => {
         it("GET search user by first name", async () => {
             //get single user by name
             const firstName = "Lindsay";
-            await axios.get(baseURL + "/api/users" , { params: { page: 2 } })
+            await axios.get(baseURL + "users" , { params: { page: 2 } })
                 .then(async (res) => {
                     const userToSearch = Object.fromEntries(Object.entries(res).filter(([key, value]) => res.data.data.first_name === firstName) )
                     await expect(userToSearch.first_name, "Lindsay");
@@ -35,7 +35,7 @@ describe("Basic Endpoint Tests", async () => {
 
         it("GET single user", async () => {
             //get single user
-            await axios.get(baseURL + "/api/users/2")
+            await axios.get(baseURL + "users/2")
                 .then(async (res) => {
                     await expect(res.status).to.equal(200); //status check
                     await expect(res.data.data.id).to.equal(2); //verify id
@@ -48,7 +48,7 @@ describe("Basic Endpoint Tests", async () => {
 
         it("GET single user not found ", async () => {
             //User not found
-            await axios.get(baseURL + "/api/users/99").catch(async (err) => {
+            await axios.get(baseURL + "users/99").catch(async (err) => {
                 await expect(err.response.status).to.equal(404); //status check
                 await expect(err.response.statusText).to.equal("Not Found"); //status check
             });
@@ -57,7 +57,7 @@ describe("Basic Endpoint Tests", async () => {
 
     describe('CRUD Users test', async () => {
         it("POST create new user", async () => {
-            await axios.post(baseURL + "/api/users", {
+            await axios.post(baseURL + "users", {
                 name: "morpheus",
                 job: "test lead",
             })
@@ -70,7 +70,7 @@ describe("Basic Endpoint Tests", async () => {
         });
 
         it("PUT Update created user", async () => {
-            await axios.put(baseURL + "/api/users", {
+            await axios.put(baseURL + "users", {
                 name: "morpheus",
                 job: "Test engineer",
             })
@@ -83,7 +83,7 @@ describe("Basic Endpoint Tests", async () => {
         });
 
         it("PATCH Update created user", async () => {
-            await axios.patch(baseURL + "/api/users", {
+            await axios.patch(baseURL + "users", {
                 name: "morpheus",
                 job: "QA engineer",
             })
@@ -95,7 +95,7 @@ describe("Basic Endpoint Tests", async () => {
         });
 
         it("DELETE request", async () => {
-            await axios.delete(baseURL + "/api/users/2").then(async (res) => {
+            await axios.delete(baseURL + "users/2").then(async (res) => {
                 await expect(res.status).to.equal(204);
             });
         });
@@ -103,7 +103,7 @@ describe("Basic Endpoint Tests", async () => {
 
     describe('User Registration Test', () => {
         it("POST Registration Successful", async () => {
-            await axios.post(baseURL + "/api/register", {
+            await axios.post(baseURL + "register", {
                 email: "eve.holt@reqres.in",
                 password: "pistol",
             })
@@ -116,7 +116,7 @@ describe("Basic Endpoint Tests", async () => {
         });
 
         it("POST Registration unsuccessful", async () => {
-            await axios.post(baseURL + "/api/register", {
+            await axios.post(baseURL + "register", {
                 email: "sydney@fife",
             })
                 .catch(async (err) => {
@@ -129,7 +129,7 @@ describe("Basic Endpoint Tests", async () => {
 
     describe('User log in test', async () => {
         it("POST Log in successful", async () => {
-            await axios.post(baseURL + "/api/login", {
+            await axios.post(baseURL + "login", {
                 email: "eve.holt@reqres.in",
                 password: "cityslicka",
             })
@@ -141,7 +141,7 @@ describe("Basic Endpoint Tests", async () => {
         });
 
         it("POST Log in Unsuccessful", async () => {
-            await axios.post(baseURL + "/api/login", {
+            await axios.post(baseURL + "login", {
                 email: "peter@klaven",
             })
                 .catch(async (err) => {
@@ -153,7 +153,7 @@ describe("Basic Endpoint Tests", async () => {
     });
 
     it("GET List of users with delay params", async () => {
-        await axios.get(baseURL + "/api/users", { params: { delay: 3 } })
+        await axios.get(baseURL + "users", { params: { delay: 3 } })
             .then(async (res) => {
                 await expect(res.status).to.equal(200);
                 await expect(res.data.page).to.equal(1); //page 1
@@ -179,7 +179,7 @@ describe("Basic Endpoint Tests", async () => {
     axios.interceptors.response.use(function (res) {
         res.config.time.endTime = new Date();
         res.duration = res.config.time.endTime - res.config.time.startTime;
-        console.log("Response Data => " + res.data);
+        console.log("Response Data => " + JSON.stringify(res.data));
         return res;
     },
         (err) => {
