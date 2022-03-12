@@ -1,9 +1,11 @@
-# Mocha - Chai - API Test Automation Framework
+# Mocha - Chai - Axios - API Test Automation Framework
 
 # Built With
 *<a href="https://mochajs.org/">Mocha</a> - Core Test Framework
 
 *<a href="https://www.chaijs.com/">Chai</a> - Assertion Library
+
+*<a href="https://github.com/axios/axios">Axios</a> - Promise based HTTP client for the browser and node.js.
 
 #Setup
 1. Download and install <a href="https://nodejs.org/en/download/">node.js</a> (LTS)
