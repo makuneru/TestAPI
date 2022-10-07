@@ -1,6 +1,8 @@
-# Mocha - Chai - Axios - API Test Automation Framework
+# TypeScript - Axios - Mocha - Chai - API Test Automation Framework
 
 # Built With
+*<a href="https://www.typescriptlang.org/">TypeScript</a> - Programming Language
+
 *<a href="https://mochajs.org/">Mocha</a> - Core Test Framework
 
 *<a href="https://www.chaijs.com/">Chai</a> - Assertion Library
